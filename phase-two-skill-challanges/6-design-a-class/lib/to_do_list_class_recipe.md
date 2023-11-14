@@ -41,7 +41,9 @@ class ToDoList:
         #   Strings showing the remaining tasks 
         pass # No code here yet
 
-    def complete(self, task):
+    def complete(self, taskNum):
+        # Parameters:
+        #   taskNum: int representing position of task
         # Returns:
         #   Nothing
         # Side-effects:
@@ -58,14 +60,14 @@ _Make a list of examples of how the class will behave in different situations._
 
 """
 Add a task
-Adds task to  tasks attribute of object and formats it for output
+Adds task to tasks attribute of object and formats it for output
 """
 todos = ToDoList()
 todos.add("Walk the dog")
 todos.format() # => "Walk the dog"
 
 """
-Given a name and no task
+Add 3 tasks and formats them for output
 #remind raises an exception
 """
 todos = ToDoList()
@@ -78,17 +80,23 @@ todos.format() # =>
 "Walk the cat"""
 
 """
-Mark a a task as complete
-#remind still reminds the user to do the task, even though it looks odd
+Add 3 tasks and Mark one as complete
 """
 todos = ToDoList()
 todos.add("Walk the dog")
 todos.add("Wash the dog")
 todos.add("Walk the cat")
-todos.complete("Wash the dog")
+todos.complete(2)
 todos.format() # => 
 """Walk the dog"
 "Walk the cat"""
+
+"""
+Raises error if task to complete not in range of tasks
+"""
+todos = ToDoList()
+todos.add("Walk the dog")
+todos.complete(-1) # => "No such task to mark complete"
 ```
 
 _Encode each example as a test. You can add to the above list as you go._
