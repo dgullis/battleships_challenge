@@ -19,7 +19,7 @@ def estimate_read_time(text):
     Parameters: (str: text)
         text: a string containing words (e.g. "hello WORLD")
 
-    Returns: (str: minutes to read)
+    Returns: (str: time to read)
         time in minutes it'll take to read text (e.g. "200 minutes")
     """
     pass
@@ -41,47 +41,8 @@ estimate_read_time("") => "0 minutes"
 Given a 200 words string
 It returns 1 mins
 """
-estimate_read_time("""Python is a powerful and versatile programming language. It is known for its readability and ease of use. Python is widely used in various domains, including web development, data science, artificial intelligence, and more. Programmers appreciate Python's simplicity and the extensive standard library that comes with it.
+estimate_read_time("word"*200) => "1 minutes"
 
-In Python, you can easily manipulate strings, work with data structures like lists and dictionaries, and create efficient algorithms. The community around Python is vibrant, and there are numerous libraries and frameworks available to simplify different tasks.
-
-Whether you are a beginner or an experienced developer, Python provides a welcoming environment. Its syntax is clear and concise, making it accessible for those new to programming.
-
-One of Python's strengths is its support for object-oriented programming, allowing developers to create modular and reusable code. Additionally, Python's dynamic typing system enables flexible and expressive coding.
-
-Overall, Python has become a go-to language for many developers, and its influence continues to grow as it remains at the forefront of technological advancements.
-Feel free to use this string for testing or any other purpose!""") => "1 minutes"
-
-"""
-Given two lowercase words
-It returns an empty list
-"""
-extract_uppercase("hello world") => []
-
-"""
-Given a lower and a mixed case word
-It returns an empty list
-"""
-extract_uppercase("hello WoRLD") => []
-
-"""
-Given a lowercase word and an uppercase word with an exclamation mark
-It returns a list with the uppercase word, no exclamation mark
-"""
-extract_uppercase("hello WORLD!") => ["WORLD"]
-
-"""
-Given an empty string
-It returns an empty list
-"""
-extract_uppercase("") => []
-
-"""
-Given a None value
-It throws an error
-"""
-extract_uppercase(None) throws an error
-```
 
 _Encode each example as a test. You can add to the above list as you go._
 
