@@ -16,7 +16,6 @@ I want to mark tasks as complete and have them disappear from the list.
 _Include the initializer, public properties, and public methods with all parameters, return values, and side-effects._
 
 ```python
-# EXAMPLE
 
 class ToDoList:
     # User-facing properties:
@@ -56,7 +55,6 @@ class ToDoList:
 _Make a list of examples of how the class will behave in different situations._
 
 ``` python
-# EXAMPLE
 
 """
 Add a task
