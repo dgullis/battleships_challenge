@@ -42,7 +42,7 @@ Given a 200 words string
 It returns 1 mins
 """
 estimate_read_time("word"*200) => "1 minutes"
-
+```
 
 _Encode each example as a test. You can add to the above list as you go._
 
