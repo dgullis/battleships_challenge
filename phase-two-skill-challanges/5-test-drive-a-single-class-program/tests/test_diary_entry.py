@@ -33,3 +33,11 @@ def test_reading_chunk_three_times():
     entry.reading_chunk(1, 1)
     result = entry.reading_chunk(1, 1)
     assert result == 'contents'
+
+def test_reading_chunk_restart():
+    entry = DiaryEntry('Title', 'These are the contents')
+    entry.reading_chunk(2, 1)
+    entry.reading_chunk(1, 1)
+    entry.reading_chunk(1, 1)
+    result = entry.reading_chunk(2, 1)
+    assert result == 'These are'

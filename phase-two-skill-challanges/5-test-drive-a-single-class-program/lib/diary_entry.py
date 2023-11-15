@@ -49,6 +49,8 @@ class DiaryEntry:
         wordsRead = wpm * minutes
         chunk = ' '.join(words[self.pos:self.pos + wordsRead])
         self.pos += wordsRead
+        if self.pos >= len(self.contents):
+            self.pos = 0
         return chunk
 
 
