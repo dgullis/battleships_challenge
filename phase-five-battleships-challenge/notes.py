@@ -5,9 +5,10 @@ What we need to implement:
         - Board Rows and Cols - Restricted to 1-10
         - Ship Size
         - Re-prompt  if one of these threw an error
-        - remove ship when used
+    
     - Loop for Game - allowing multiple ships to be placed
-    - Ships Cannot Overlap
+        - Remove ship when used
+        - Ships Cannot Overlap
     - Player Class for multiple players
     - Output Winner function in Game class
     - Shooting and Sinking Ships Functionality

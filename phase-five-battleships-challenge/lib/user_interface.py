@@ -29,7 +29,7 @@ class UserInterface:
     # Display/output a mesage showing the remaining(yet to be placed) ships
     def _ships_unplaced_message(self, format):
         ship_lengths = [str(ship.length) for ship in self.game.unplaced_ships()]
-        if format == "string"
+        if format == "string":
             return ", ".join(ship_lengths)
         return ship_lengths
 
@@ -44,22 +44,22 @@ class UserInterface:
     # if any inputs invalid error message shown and re-prompt until valid input
     def _prompt_for_ship_placement(self):
         ship_length = self._prompt("Which do you wish to place?")
-        while self.validity(ship_length, self._ships_unplaced_message("list")):
+        while not self.validity(ship_length, self._ships_unplaced_message("list")):
             self._show("invalid ship, choose again...")
             ship_length = self._prompt("Which do you wish to place?")
 
         ship_orientation = self._prompt("Vertical or horizontal? [vh]")
-        while self.validity(ship_orientation, ["v", "h"]):
+        while not self.validity(ship_orientation, ["v", "h"]):
             self._show("invalid orientation, choose again...")
             ship_orientation = self._prompt("Vertical or horizontal? [vh]")
 
         ship_row = self._prompt("Which row?")
-        while self.validity(ship_row, [num for num in range(1,11)]):
+        while not self.validity(int(ship_row), [num for num in range(1,11)]):
             self._show("out of bounds, choose again...")
             ship_orientation = self._prompt("Which row?")
 
         ship_col = self._prompt("Which column?")
-        while self.validity(ship_col, [num for num in range(1,11)]):
+        while not self.validity(int(ship_col), [num for num in range(1,11)]):
             self._show("out of bounds, choose again...")
             ship_orientation = self._prompt("Which column?")
 

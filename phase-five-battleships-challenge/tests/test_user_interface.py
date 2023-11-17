@@ -5,7 +5,7 @@ from unittest.mock import Mock
 """
 test incorrect ship choice
 """
-def test_ship_setup_invalid_ship_size_on_first_try(self):
+def test_ship_setup_invalid_ship_size_on_first_try():
     io = TerminalInterfaceHelperMock()
     interface = UserInterface(io, Mock())
     io.expect_print("Welcome to the game!")
@@ -13,7 +13,7 @@ def test_ship_setup_invalid_ship_size_on_first_try(self):
     io.expect_print("You have these ships remaining: 2, 3, 3, 4, 5")
     io.expect_print("Which do you wish to place?")
     io.provide("1")
-    self.expected_print("invalid ship, choose again...")
+    io.expect_print("invalid ship, choose again...")
     io.provide("2")
     io.expect_print("Vertical or horizontal? [vh]")
     io.provide("v")
@@ -29,7 +29,7 @@ def test_ship_setup_invalid_ship_size_on_first_try(self):
 test incorrect orientation choice
 """
 
-def test_ship_setup_invalid_orientation(self):
+def test_ship_setup_invalid_orientation():
     io = TerminalInterfaceHelperMock()
     interface = UserInterface(io, Mock())
     io.expect_print("Welcome to the game!")
@@ -39,7 +39,7 @@ def test_ship_setup_invalid_orientation(self):
     io.provide("2")
     io.expect_print("Vertical or horizontal? [vh]")
     io.provide("vertical")
-    self.expect_print("invalid orientation, choose again...")
+    io.expect_print("invalid orientation, choose again...")
     io.provide("v")
     io.expect_print("Which row?")
     io.provide("3")
@@ -53,7 +53,7 @@ def test_ship_setup_invalid_orientation(self):
 test incorrect row choice
 """
 
-def test_ship_setup_invalid_row(self):
+def test_ship_setup_invalid_row():
     io = TerminalInterfaceHelperMock()
     interface = UserInterface(io, Mock())
     io.expect_print("Welcome to the game!")
@@ -77,7 +77,7 @@ def test_ship_setup_invalid_row(self):
 test incorrect col choice
 """
 
-def test_ship_setup_invalid_column(self):
+def test_ship_setup_invalid_column():
     io = TerminalInterfaceHelperMock()
     interface = UserInterface(io, Mock())
     io.expect_print("Welcome to the game!")
@@ -102,7 +102,7 @@ def test_ship_setup_invalid_column(self):
 test invalid row choice given ship length and co-ordinates
 """
 
-def test_ship_setup_invalid_ship_collision(self):
+def test_ship_setup_invalid_ship_collision():
     io = TerminalInterfaceHelperMock()
     interface = UserInterface(io, Mock())
     io.expect_print("Welcome to the game!")
