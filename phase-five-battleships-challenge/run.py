@@ -1,6 +1,7 @@
 import sys
 from lib.game import Game
 from lib.user_interface import UserInterface
+from lib.player import *
 
 
 class TerminalIO:
