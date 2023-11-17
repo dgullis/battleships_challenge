@@ -124,6 +124,78 @@ def test_ship_setup_invalid_ship_collision():
     io.expect_print("OK.")
     io.expect_print("This is your board now:")
 
+def test_place_two_ships():
+    io = TerminalInterfaceHelperMock()
+    game = Mock()
+    # game.unplaced_ships.return_value = ["2", "3", "3, 4, 5"]
+    game.unplaced_ships.return_value = [
+            Mock(length = 2),
+            Mock(length = 3),
+            Mock(length = 3),
+            Mock(length = 4),
+            Mock(length = 5),
+        ]
+    interface = UserInterface(io, game)
+    io.expect_print("Welcome to the game!")
+    io.expect_print("Set up your ships first.")
+    io.expect_print("You have these ships remaining: 2, 3, 3, 4, 5")
+    io.expect_print("Which do you wish to place?")
+    io.provide("2")
+    io.expect_print("Vertical or horizontal? [vh]")
+    io.provide("v")
+    io.expect_print("Which row?")
+    io.provide("3")
+    io.expect_print("Which column?")
+    io.provide("2")
+    io.expect_print("OK.")
+    io.expect_print("This is your board now:")
+    io.expect_print("\n".join([
+        "..........",
+        "..........",
+        ".S........",
+        ".S........",
+        "..........",
+        "..........",
+        "..........",
+        "..........",
+        "..........",
+        ".........."
+    ]))
+
+    # game.unplaced_ships.return_value = ["3", "3", "4", "5"]
+    game.unplaced_ships.return_value = [
+            Mock(length = 3),
+            Mock(length = 3),
+            Mock(length = 4),
+            Mock(length = 5),
+        ]
+    # Second Ship
+    io.expect_print("You have these ships remaining: 3, 3, 4, 5")
+    io.expect_print("Which do you wish to place?")
+    io.provide("5")
+    io.expect_print("Vertical or horizontal? [vh]")
+    io.provide("v")
+    io.expect_print("Which row?")
+    io.provide("3")
+    io.expect_print("Which column?")
+    io.provide("5")
+    io.expect_print("OK.")
+    io.expect_print("This is your board now:")
+    io.expect_print("\n".join([
+        "..........",
+        "..........",
+        ".S..S.....",
+        ".S..S.....",
+        "....S.....",
+        "....S.....",
+        "....S.....",
+        "..........",
+        "..........",
+        ".........."
+    ]))
+    interface.run()
+
+
 # def test_ship_setup_scenario(self):
 #     io = TerminalInterfaceHelperMock()
 #     interface = UserInterface(io, Mock())

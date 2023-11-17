@@ -11,11 +11,12 @@ class UserInterface:
     def run(self):
         self._show("Welcome to the game!")
         self._show("Set up your ships first.")
-        self._show("You have these ships remaining: {}".format(
-            self._ships_unplaced_message("string")))
-        self._prompt_for_ship_placement()
-        self._show("This is your board now:")
-        self._show(self._format_board())
+        while not self.game.end_game:
+            self._show("You have these ships remaining: {}".format(
+                self._ships_unplaced_message("string")))
+            self._prompt_for_ship_placement()
+            self._show("This is your board now:")
+            self._show(self._format_board())
 
     # Display/output a message to the CLI
     def _show(self, message):

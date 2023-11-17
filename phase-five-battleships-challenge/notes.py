@@ -80,3 +80,31 @@ def _prompt_for_ship_placement(self):
                 row=int(ship_row),
                 col=int(ship_col),
             )
+
+from lib.ship_placement import ShipPlacement
+
+class Player():
+
+    def __init__():
+        self.ships_remaining = [
+            Ship(2),
+            Ship(3),
+            Ship(3),
+            Ship(4),
+            Ship(5),
+            ]
+        self.ships_placed = []
+        # self.sunk = []
+        self.win = False
+        
+
+    def place_ship(self, length, orientation, row, col, player):
+        ship_placement = ShipPlacement(
+            length=length,
+            orientation=orientation,
+            row=row,
+            col=col,
+        )
+        player.ships_placed.append(ship_placement)
+
+        

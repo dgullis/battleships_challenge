@@ -10,6 +10,7 @@ class Game:
         self.ships_placed = []
         self.rows = rows
         self.cols = cols
+        end_game = False
 
     # calls the ship class 5 times
     # parameter passed into each call represents length of ship
