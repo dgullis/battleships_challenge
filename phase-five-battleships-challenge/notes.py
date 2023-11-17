@@ -1,10 +1,11 @@
 """
 What we need to implement:
     - Error Checking and Throwing -
-        - vh - input for Vertical/Horizontal shoul only accept hv (any case)
+        - vh - input for Vertical/Horizontal should only accept hv (any case)
         - Board Rows and Cols - Restricted to 1-10
         - Ship Size
         - Re-prompt  if one of these threw an error
+        - remove ship when used
     - Loop for Game - allowing multiple ships to be placed
     - Ships Cannot Overlap
     - Player Class for multiple players
