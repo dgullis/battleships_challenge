@@ -1,4 +1,20 @@
 """
+What we need to implement:
+    - Error Checking and Throwing -
+        - vh - input for Vertical/Horizontal shoul only accept hv (any case)
+        - Board Rows and Cols - Restricted to 1-10
+        - Ship Size
+        - Re-prompt  if one of these threw an error
+    - Loop for Game - allowing multiple ships to be placed
+    - Ships Cannot Overlap
+    - Player Class for multiple players
+    - Output Winner function in Game class
+    - Shooting and Sinking Ships Functionality
+"""
+
+
+
+"""
 Function => test valid move (inputed row, inputed column, board rows, boards cols)
 
 Input = invalid

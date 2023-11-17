@@ -107,24 +107,17 @@ help you figure out which classes and methods to have.
 Steps 3, 4, and 5 then operate as a cycle.
 
 ### Files and Classes
-- game.py
-Game
-    __int__ - rows=10, columns=10
-    unplaced_ships - 
-    place_ships - length, orientation, row, col
-    ship_at - row, col
+- ship.py  
+Ship
 
-- ship_placement.py
-ShipPlacement 
+- ship_placement.py  
+ShipPlacement  
     __init__- length, orientation, row, col
     covers - row, col
     __repr__
 
-- ship.py
-Ship
-
-- user_interface.py
-UserInterface
+- user_interface.py  
+UserInterface  
     __init__ - io, game
     run -
     _show - message
@@ -133,22 +126,31 @@ UserInterface
     _prompt_for_ship_placement - 
     _format_board - 
 
+- game.py  
+Game  
+    __int__ - rows=10, columns=10
+    unplaced_ships
+    place_ships - length, orientation, row, col
+    ship_at - row, col
 
-[x] Place ship on board
-[x] multiple ship sizes
-[o] ships constrained to board
-[o] ships cannot overlap
-[ ] can fire at opponent's board
-[ ] 2 player game
+
+### Functionality Needed:
+- [x] Place ship on board
+- [x] multiple ship sizes
+- [x] ships constrained to board
+- [ ] ships cannot overlap
+- [ ] 2 player game
+- [ ] can fire at opponent's board
+
 
 Command Line Interface Input:
-[x] enter ship positions
-[ ] enter shots
-[x] choose direction of ship 
+- [x] enter ship positions
+- [x] choose direction of ship
+- [ ] enter shots
 
 Output:
-[o] when opponent's ship has sunk
-[ ] when game ends - win or loss
+- [ ] when opponent's ship has sunk
+- [ ] when game ends - win or loss
 
 ## 3. Create Examples as Integration Tests
 
