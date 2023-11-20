@@ -17,14 +17,15 @@ class UserInterface:
     def run(self):
         self._show("Welcome to the game!")
         self._show("Set up your ships first.")
-    
 
+        self._prompt_for_player_names()
+        
         switch_turn = True
 
         while not self.game.all_ships_placed:
             player = self.game.check_turn(switch_turn)
 
-            self._show(f"It is Player {player.player_number}'s turn")
+            self._show(f"It is {player.name}'s turn")
             
             self._show("You have these ships remaining: {}".format(
                 self._ships_unplaced_message("string", player)))
@@ -136,6 +137,12 @@ class UserInterface:
         missile_column = missile_coordinates[1].strip()
         #print(missile_row, missile_column)
         return (int(missile_row), int(missile_column))
+    
+    def _prompt_for_player_names(self):
+        for player in self.game.players.values():
+            player.name = self._prompt(f"Player {player.player_number} enter your name")
+    
+
 
 
     # Output the current layout of the board

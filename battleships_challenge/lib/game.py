@@ -83,7 +83,7 @@ class Game:
         for player in self.players.values():
             if player.placed_ships != []:
                 player.win = True
-                return f"{player.player_number} has won!" + "\n"
+                return f"{player.name} has won!" + "\n"
                 
                 
         
