@@ -7,10 +7,9 @@ class UserInterface:
         self.game = game
         self.players = {}
 
-    # Starts the game - outputting a welcome message using the private show method
-    # Displays unplaced ships using private _ships_unplaced_message() method
-    # Prompts user for input using private _promp_for_ship_placement() method
-    # Output the board using the private _format_board() method
+    # game starts with welcome messages
+    # player names are set
+    # player is set to player 1
     def run(self):
         self._show("Welcome to the game!")
         self._prompt_for_player_names()
@@ -18,7 +17,7 @@ class UserInterface:
 
         player = next(filter(lambda p: p.player_number == 1, self.game.players.values()), None)
 
-
+        # players prompted to plae ships until both players have placed all ships
         while not self.game.all_ships_placed:
             
             self._show(f"It is {player.name}'s turn")
@@ -31,7 +30,9 @@ class UserInterface:
             player = self.game.switch_player(player)
         
             self.game.check_if_all_players_have_placed_all_ships()
-                
+        
+        # players prompted to select co-ordinates for their missiles
+        # when a player has sunk all of the other players ships, theyre declared winner        
         while not self.game.end_game:
             self.game.check_if_game_ended()
             
@@ -43,9 +44,9 @@ class UserInterface:
             self._show(missile_strike_message)
             
             self.game.check_if_game_ended()
+
             player = self.game.switch_player(player)
             
-
         self._show(self.game.announce_winner())
 
     # Display/output a message to the CLI
@@ -64,11 +65,7 @@ class UserInterface:
             return ", ".join(ship_lengths)
         return ship_lengths
 
-    # def validity(self, input_value, valid_list):
-    #     if input_value in valid_list:
-    #         return True
-    #     return False
-    
+    # prompts user for input and compares input against list of valid option
     def _prompt_and_validate(self, prompt_msg, validation_options):
             user_input = self._prompt(prompt_msg)
             while user_input not in validation_options:
@@ -76,28 +73,19 @@ class UserInterface:
                 user_input = self._prompt(prompt_msg)
             return user_input
 
-    # Prompt user for input - ship length, orientation, row and col co-ordinates, using _prompt method
-    # Store the returned values in their respective variables
-    # Place the ship using the above variables as parameters for the place_ship() function in the Game class
-    # if any inputs invalid error message shown and re-prompt until valid input
+    # gets values for ship length, orientation, row and column from user
+    # will only continue when each input is valid
     def _prompt_for_ship_placement(self, player):
         ship_length = self._prompt_and_validate("Which do you wish to place?", self._ships_unplaced_message("list", player))
         ship_orientation = self._prompt_and_validate("Vertical or horizontal? [vh]", ["v", "h"])
         ship_row = self._prompt_and_validate("Which row?", [str(num) for num in range(1,11)])
         ship_col = self._prompt_and_validate("Which column?", [str(num) for num in range(1,11)])
 
-        if ship_orientation == "v":
-            while int(ship_row) + int(ship_length) > self.game.rows + 1:
+        while self.game.check_if_ship_within_board(ship_orientation, ship_length, ship_row, ship_col):
                 self._show("out of bounds, choose again...")
                 ship_row = self._prompt("Which row?")
                 ship_col = self._prompt("Which column?")
 
-        if ship_orientation == "h":
-            while int(ship_col) + int(ship_length) > self.game.cols + 1:
-                self._show("out of bounds, choose again...")
-                ship_row = self._prompt("Which row?")
-                ship_col = self._prompt("Which column?")
-    
         while self.game.check_for_ship_collisions(ship_row, ship_col, player):
             self._show("ship collision, choose again...")
             ship_row = self._prompt("Which row?")
@@ -114,27 +102,21 @@ class UserInterface:
             )
         self.game.remove_placed_ship(ship_length, player)
     
+    # gets missile co-ordinates from user
+    # returns these as a tuple of integers (row, column)
     def _prompt_for_missile_coordinates(self):
         raw_missile_coordinates = self._prompt("Choose missile co-ordinates [row, column]")
         missile_coordinates = raw_missile_coordinates.split(",")
         missile_row = missile_coordinates[0].strip()
         missile_column = missile_coordinates[1].strip()
-        #print(missile_row, missile_column)
         return (int(missile_row), int(missile_column))
     
     def _prompt_for_player_names(self):
         for player in self.game.players.values():
             player.name = self._prompt(f"Player {player.player_number} enter your name")
     
-
-
-
-    # Output the current layout of the board
-    # Generate the board row by row in the for loop
-    # Give ship_at function from Game class co-ordinates of a cell, if it returns True,
-    # set cell to S, else set to .
-    # append cell to row_cells list
-    # append joined row_cells list to rows list
+   # outputs board to terminal
+   # ship locations represented by "S", empty grid spaces represented by "."
     def _format_board(self, player):
         rows = []
         for row in range(1, self.game.rows + 1):

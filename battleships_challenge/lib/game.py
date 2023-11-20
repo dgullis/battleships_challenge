@@ -17,6 +17,12 @@ class Game:
         for player_number in range(1, players + 1):
             self.players[f"Player {player_number}"] = Player(player_number)
 
+    
+    def check_if_ship_within_board(self, orientation, length, row, col):
+        if orientation == "v":
+            return int(row) + int(length) > self.rows + 1 
+        return int(col) + int(length) > self.cols + 1
+
 
     # creates an instance of ShipPlacement passing in values for:
         # length, orientation, row, col
