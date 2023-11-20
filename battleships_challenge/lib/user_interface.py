@@ -23,25 +23,19 @@ class UserInterface:
         switch_turn = True
 
         while not self.game.all_ships_placed:
+            
             player = self.game.check_turn(switch_turn)
 
             self._show(f"It is {player.name}'s turn")
-            
             self._show("You have these ships remaining: {}".format(
                 self._ships_unplaced_message("string", player)))
-                
             self._prompt_for_ship_placement(player)
             self._show("This is your board now:")
             self._show(self._format_board(player))
-            
-
+        
             switch_turn = not switch_turn
-
-            for player in self.game.players.values():
-                if player.unplaced_ships == []:
-                    self.game.all_ships_placed = True
-                else:
-                    self.game.all_ships_placed = False
+        
+            self.game.check_if_all_players_have_placed_all_ships()
                 
         while not self.game.end_game:
             self.game.check_if_game_ended()

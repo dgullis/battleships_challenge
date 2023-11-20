@@ -62,6 +62,14 @@ class Game:
                 return True
         return False
     
+    def check_if_all_players_have_placed_all_ships(self):
+        for player in self.players.values():
+            if player.unplaced_ships == []:
+                self.all_ships_placed = True
+            else:
+                self.all_ships_placed = False
+                
+    
     def check_for_missile_strike(self, row, col, player):
         pass
     

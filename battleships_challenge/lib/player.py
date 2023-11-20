@@ -6,8 +6,8 @@ class Player():
     def __init__(self, player_number):
         self.unplaced_ships = [
             Ship(2),
-            Ship(3),
-            Ship(3),
+            #Ship(3),
+            #Ship(3),
             #Ship(4),
             #Ship(5),
             ]
