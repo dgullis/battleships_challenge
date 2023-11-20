@@ -28,9 +28,6 @@ class UserInterface:
                 player = self.players["Player 2"]
 
             self._show(f"It is Player {player.player_number}'s turn")
-            #if len(player.unplaced_ships) == 0:
-            #    strike_coordinates = self._prompt("Choose co-ordinates for missile [row, col]")
-
             # if theres no remaining ships
             # start the battle
             # take turns
@@ -95,11 +92,16 @@ class UserInterface:
                 ship_col = self._prompt("Which column?")
 
 
-            if ship_orientation == "h":
-                while int(ship_col) + int(ship_length) > self.game.cols + 1:
-                    self._show("out of bounds, choose again...")
-                    ship_row = self._prompt("Which row?")
-                    ship_col = self._prompt("Which column?")
+        if ship_orientation == "h":
+            while int(ship_col) + int(ship_length) > self.game.cols + 1:
+                self._show("out of bounds, choose again...")
+                ship_row = self._prompt("Which row?")
+                ship_col = self._prompt("Which column?")
+    
+        while self.game.check_for_ship_collisions(ship_row, ship_col, player):
+            self._show("ship collision, choose again...")
+            ship_row = self._prompt("Which row?")
+            ship_col = self._prompt("Which column?")
 
         # when all placements are valid
         # ship is placed

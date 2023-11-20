@@ -55,3 +55,10 @@ class Game:
             if ship_placement.covers(row, col):
                 return True
         return False
+    
+    def check_for_ship_collisions(self, row, col, player):
+        for ship_placement in player.ships_placed:
+            if (int(row), int(col)) in ship_placement.co_ordinates:
+                return True
+        return False
+
