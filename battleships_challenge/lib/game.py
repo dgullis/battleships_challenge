@@ -17,16 +17,6 @@ class Game:
         for player_number in range(1, players + 1):
             self.players[f"Player {player_number}"] = Player(player_number)
 
-    # calls the ship class 5 times
-    # parameter passed into each call represents length of ship
-    # def unplaced_ships(self):
-    #     return [
-    #         Ship(2),
-    #         Ship(3),
-    #         #Ship(3),
-    #         #Ship(4),
-    #         #Ship(5),
-    #     ]
 
     # creates an instance of ShipPlacement passing in values for:
         # length, orientation, row, col
@@ -70,15 +60,21 @@ class Game:
                 self.all_ships_placed = False
                 
     
-    def check_for_missile_strike(self, row, col, player):
-        pass
+    def check_for_missile_strike(self, missile_coordinates, player):
+        for ship in self.switch_player(player).placed_ships:
+                if missile_coordinates in ship.co_ordinates:
+                    self.switch_player(player).placed_ships.remove(ship)
+                    return "Strike!"
+                else:
+                    return "No strike"
     
-    def switch_player(self, switch):
-        if switch == True:
-            player = self.players["Player 1"]
-        else:
+    def switch_player(self, current_player):
+        if current_player.player_number == 1:
             player = self.players["Player 2"]
+        else:
+            player = self.players["Player 1"]
         return player
+        
 
     def check_if_game_ended(self):
         for player in self.players.values():
@@ -91,7 +87,7 @@ class Game:
         for player in self.players.values():
             if player.placed_ships != []:
                 player.win = True
-                return f"{player.name} has won!" + "\n"
+                return f"{player.name} has won!"
                 
                 
         

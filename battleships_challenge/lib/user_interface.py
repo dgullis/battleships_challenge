@@ -6,9 +6,6 @@ class UserInterface:
         self.io = io
         self.game = game
         self.players = {}
-        # for player_number in range(1, players + 1):
-        #     self.players[f"Player {player_number}"] = Player(player_number)
-
 
     # Starts the game - outputting a welcome message using the private show method
     # Displays unplaced ships using private _ships_unplaced_message() method
@@ -16,16 +13,14 @@ class UserInterface:
     # Output the board using the private _format_board() method
     def run(self):
         self._show("Welcome to the game!")
+        self._prompt_for_player_names()
         self._show("Set up your ships first.")
 
-        self._prompt_for_player_names()
-        
-        switch = True
+        player = next(filter(lambda p: p.player_number == 1, self.game.players.values()), None)
+
 
         while not self.game.all_ships_placed:
             
-            player = self.game.switch_player(switch)
-
             self._show(f"It is {player.name}'s turn")
             self._show("You have these ships remaining: {}".format(
                 self._ships_unplaced_message("string", player)))
@@ -33,28 +28,23 @@ class UserInterface:
             self._show("This is your board now:")
             self._show(self._format_board(player))
         
-            switch= not switch
+            player = self.game.switch_player(player)
         
             self.game.check_if_all_players_have_placed_all_ships()
                 
         while not self.game.end_game:
             self.game.check_if_game_ended()
-
-            player = self.game.switch_player(switch)
             
             self._show(f"It is {player.name}'s turn")
         
             missile_coordinates = self._prompt_for_missile_coordinates()
-            
-            for ship in self.game.switch_player(player).placed_ships:
-                if missile_coordinates in ship.co_ordinates:
-                    self._show("Strike!")
-                    self.game.switch_player(player).placed_ships.remove(ship)
-                else:
-                    self._show("No strike")
+
+            missile_strike_message = self.game.check_for_missile_strike(missile_coordinates, player)
+            self._show(missile_strike_message)
             
             self.game.check_if_game_ended()
-            switch = not switch
+            player = self.game.switch_player(player)
+            
 
         self._show(self.game.announce_winner())
 
