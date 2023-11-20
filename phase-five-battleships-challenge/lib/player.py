@@ -8,13 +8,13 @@ class Player():
             Ship(2),
             Ship(3),
             Ship(3),
-            Ship(4),
-            Ship(5),
+            #Ship(4),
+            #Ship(5),
             ]
-        self.ships_placed = []
-        # self.sunk = []
+        self.placed_ships = []
         self.win = False
         self.player_number = player_number
+
 
 
         

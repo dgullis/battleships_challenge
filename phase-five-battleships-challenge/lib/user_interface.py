@@ -6,8 +6,8 @@ class UserInterface:
         self.io = io
         self.game = game
         self.players = {}
-        for player_number in range(1, players + 1):
-            self.players[f"Player {player_number}"] = Player(player_number)
+        # for player_number in range(1, players + 1):
+        #     self.players[f"Player {player_number}"] = Player(player_number)
 
 
     # Starts the game - outputting a welcome message using the private show method
@@ -19,32 +19,49 @@ class UserInterface:
         self._show("Set up your ships first.")
     
 
-        player_1_turn = True
+        switch_turn = True
 
-        while not self.game.end_game:
-            if player_1_turn == True:
-                player = self.players["Player 1"]
-            else:
-                player = self.players["Player 2"]
+        while not self.game.all_ships_placed:
+            player = self.game.check_turn(switch_turn)
 
             self._show(f"It is Player {player.player_number}'s turn")
-            # if theres no remaining ships
-            # start the battle
-            # take turns
-            # choose coordiantes (row, col)
-            # if coordinated match other players strike zones
-            # ship sunk
-            # otherwise - no hit
             
             self._show("You have these ships remaining: {}".format(
                 self._ships_unplaced_message("string", player)))
+                
             self._prompt_for_ship_placement(player)
             self._show("This is your board now:")
             self._show(self._format_board(player))
             
 
-            player_1_turn = not player_1_turn
+            switch_turn = not switch_turn
+
+            for player in self.game.players.values():
+                if player.unplaced_ships == []:
+                    self.game.all_ships_placed = True
+                else:
+                    self.game.all_ships_placed = False
+                
+        while not self.game.end_game:
+            self.game.check_if_game_ended()
+
+            player = self.game.check_turn(switch_turn)
             
+            self._show(f"It is Player {player.player_number}'s turn")
+        
+            missile_coordinates = self._prompt_for_missile_coordinates()
+            
+            for ship in self.game.check_turn(player).placed_ships:
+                if missile_coordinates in ship.co_ordinates:
+                    self._show("Strike!")
+                    self.game.check_turn(player).placed_ships.remove(ship)
+                else:
+                    self._show("No strike")
+            
+            self.game.check_if_game_ended()
+            switch_turn = not switch_turn
+
+        self._show(self.game.announce_winner())
 
     # Display/output a message to the CLI
     def _show(self, message):
@@ -79,7 +96,6 @@ class UserInterface:
     # Place the ship using the above variables as parameters for the place_ship() function in the Game class
     # if any inputs invalid error message shown and re-prompt until valid input
     def _prompt_for_ship_placement(self, player):
-        
         ship_length = self._prompt_and_validate("Which do you wish to place?", self._ships_unplaced_message("list", player))
         ship_orientation = self._prompt_and_validate("Vertical or horizontal? [vh]", ["v", "h"])
         ship_row = self._prompt_and_validate("Which row?", [str(num) for num in range(1,11)])
@@ -90,7 +106,6 @@ class UserInterface:
                 self._show("out of bounds, choose again...")
                 ship_row = self._prompt("Which row?")
                 ship_col = self._prompt("Which column?")
-
 
         if ship_orientation == "h":
             while int(ship_col) + int(ship_length) > self.game.cols + 1:
@@ -113,6 +128,15 @@ class UserInterface:
             col=int(ship_col),
             )
         self.game.remove_placed_ship(ship_length, player)
+    
+    def _prompt_for_missile_coordinates(self):
+        raw_missile_coordinates = self._prompt("Choose missile co-ordinates [row, column]")
+        missile_coordinates = raw_missile_coordinates.split(",")
+        missile_row = missile_coordinates[0].strip()
+        missile_column = missile_coordinates[1].strip()
+        #print(missile_row, missile_column)
+        return (int(missile_row), int(missile_column))
+
 
     # Output the current layout of the board
     # Generate the board row by row in the for loop
@@ -132,12 +156,3 @@ class UserInterface:
             rows.append("".join(row_cells))
         return "\n".join(rows)
         
-
-
-    # def is_valid(self, game, length, orientation, row, col):
-    #     if (row > 0 and row < game.rows) and (col > 0 and col < game.cols):
-    #         if orientation == "vertical" and (row + length) <= game.rows:
-    #             return True
-    #         elif orientation == "horizontal" and (col + length) <= game.cols:
-    #             return True
-    #     return False
