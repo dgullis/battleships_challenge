@@ -33,11 +33,23 @@ class Game:
             col=col,
         )
         player.ships_placed.append(ship_placement)
+        
 
-    # iterates over items in ships_placed list
-        # for each iteration it calls ship_placement.covers() with the given
-            # row and col values
-        # if this returns true the function returns true, otherwise returns false
+    # def ship_strike_zone(self, length, orientation, row, col):
+    #     if orientation == "vertical":
+    #         return [(row + num, col) for num in range(0, length)]
+    #     if orientation == "horizontal":
+    #         return [(row, col + num) for num in range(0, length)]
+        
+    
+    # removes ship from players list of ships after use
+    def remove_placed_ship(self, length, player):
+        for ship in player.unplaced_ships:
+            if ship.length == int(length):
+                player.unplaced_ships.remove(ship)
+
+    # iterates over players list of placed ships
+    # 
     def ship_at(self, row, col, player):
         for ship_placement in player.ships_placed:
             if ship_placement.covers(row, col):
