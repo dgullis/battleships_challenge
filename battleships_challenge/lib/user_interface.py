@@ -1,11 +1,9 @@
 from lib.player import Player
 
 class UserInterface:
-    # 
     def __init__(self, io, game, players = 2):
         self.io = io
         self.game = game
-        self.players = {}
 
     # game starts with welcome messages
     # player names are set
@@ -32,19 +30,20 @@ class UserInterface:
             self.game.check_if_all_players_have_placed_all_ships()
         
         # players prompted to select co-ordinates for their missiles
-        # when a player has sunk all of the other players ships, theyre declared winner        
+        # when a player has sunk all of the other players ships, they're declared winner        
         while not self.game.end_game:
             self.game.check_if_game_ended()
-            
+
             self._show(f"It is {player.name}'s turn")
-        
+
             missile_coordinates = self._prompt_for_missile_coordinates()
 
             missile_strike_message = self.game.check_for_missile_strike(missile_coordinates, player)
+            
             self._show(missile_strike_message)
             
             self.game.check_if_game_ended()
-
+    
             player = self.game.switch_player(player)
             
         self._show(self.game.announce_winner())

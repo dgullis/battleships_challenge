@@ -1,6 +1,7 @@
 class ShipPlacement:
     
-    # initialises with length, orietation, row and column values
+    # initialises with given length, orietation, row and column values
+    # empty list created to store the co-ordintes the ship will cover on the board
     def __init__(self, length, orientation, row, col):
         self.length = length
         self.orientation = orientation
@@ -9,7 +10,7 @@ class ShipPlacement:
         self.co_ordinates = []
 
 
-    # returns true if placed ship covers given values for row and column
+    # checks to see if ship covers given row, column co-ordinates
     # adds covering co-ordinates to list as tuples (row, col)
     def covers(self, row, col):
         if self.orientation == "vertical":
