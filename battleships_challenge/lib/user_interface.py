@@ -20,11 +20,11 @@ class UserInterface:
 
         self._prompt_for_player_names()
         
-        switch_turn = True
+        switch = True
 
         while not self.game.all_ships_placed:
             
-            player = self.game.check_turn(switch_turn)
+            player = self.game.switch_player(switch)
 
             self._show(f"It is {player.name}'s turn")
             self._show("You have these ships remaining: {}".format(
@@ -33,28 +33,28 @@ class UserInterface:
             self._show("This is your board now:")
             self._show(self._format_board(player))
         
-            switch_turn = not switch_turn
+            switch= not switch
         
             self.game.check_if_all_players_have_placed_all_ships()
                 
         while not self.game.end_game:
             self.game.check_if_game_ended()
 
-            player = self.game.check_turn(switch_turn)
+            player = self.game.switch_player(switch)
             
-            self._show(f"It is Player {player.player_number}'s turn")
+            self._show(f"It is {player.name}'s turn")
         
             missile_coordinates = self._prompt_for_missile_coordinates()
             
-            for ship in self.game.check_turn(player).placed_ships:
+            for ship in self.game.switch_player(player).placed_ships:
                 if missile_coordinates in ship.co_ordinates:
                     self._show("Strike!")
-                    self.game.check_turn(player).placed_ships.remove(ship)
+                    self.game.switch_player(player).placed_ships.remove(ship)
                 else:
                     self._show("No strike")
             
             self.game.check_if_game_ended()
-            switch_turn = not switch_turn
+            switch = not switch
 
         self._show(self.game.announce_winner())
 

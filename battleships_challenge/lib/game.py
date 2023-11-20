@@ -73,8 +73,8 @@ class Game:
     def check_for_missile_strike(self, row, col, player):
         pass
     
-    def check_turn(self, player_1_turn):
-        if player_1_turn == True:
+    def switch_player(self, switch):
+        if switch == True:
             player = self.players["Player 1"]
         else:
             player = self.players["Player 2"]
